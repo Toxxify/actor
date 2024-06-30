@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru" id="app" class="app application state-unresolved state-db_inactive state-translatorExpanded">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/speaker.css">
+</head>
+
+<body data-text="" data-lang="" data-source-lang="ru" data-target-lang="en">
+  <main class="page-content">
+
+    <div class="interface">
+      <div class="actor-section">
+        <div class="actor-wrapper">
+          <label class="actor-name" for="actor-1">Актёр #1</label> 
+          <input class="actor-name__input" type="text" name="name" id="actor-1">
+          <form class="actor-voice">
+            <input class='actor-1-voice' type="radio" id="actor-1-male" name="gender" value="male" checked>
+            <label for="actor-1-male">М</label><br>
+            <input class='actor-1-voice' type="radio" id="actor-1-female" name="gender" value="female">
+            <label for="actor-1-female">Ж</label><br>
+          </form>
+        </div>
+        <div class="actor-wrapper">
+          <label class="actor-name" for="actor-2">Актёр #2</label>
+          <input class="actor-name__input" type="text" name="" id="actor-2">
+          <form class="actor-voice">
+            <input class='actor-2-voice' type="radio" id="actor-2-male" name="gender" value="male" checked>
+            <label for="actor-2-male">М</label><br>
+            <input class='actor-2-voice' type="radio" id="actor-2-female" name="gender" value="female">
+            <label for="actor-2-female">Ж</label><br>
+          </form>
+        </div>
+      </div>
+
+      <textarea class="page__script page__script--draft" id="script-draft" name="" rows="2"></textarea>
+
+      <div class="button-section">
+        <!-- <button class="button button--handle" id="handle">Обработать</button> -->
+        <button class="button button--save" id="save" title="Сохранить сценарий.">Сохранить</button>
+        <button class="button button--load" id="load" title="Загрузить сценарий.">Загрузить</button>
+        <button class="button button--rehearsal" id="rehearsal" disabled title="Чтобы начать репетицию добавьте текст и укажите актёров.">Поехали </button> <!-- 😎 -->
+      </div>
+
+    </div>
+
+
+    <div class="page__script page__script--redacted" id="script-redacted"></div>
+
+    
+    <div class="control-panel" id="control-panel" data-box-panel="">
+      <div class="warning"></div>
+      <button id="goBack" class="speaker-btn speaker-btn--back"><img src="assets/times-ico.svg" alt="restart"></button>
+      <select class="select-actor" id="select-actor" name="select">
+        <option id='actor-1-select' value="value1" selected>Значение 1</option>
+        <option id='actor-2-select' value="value2">Значение 2</option>
+      </select>
+      <button id="goRestart" class="speaker-btn speaker-btn--restart"><img src="assets/restart-ico.svg" alt="restart"></button>
+      <button id="textSpeaker" class="speaker-btn speaker-btn--play speaker-btn_tts button_view_clear button_icn state-disabled"></button>
+      <div class="control-back"></div>
+    </div>
+
+
+    <div id="textbox" class="box box_src state-empty">
+      <textarea id="textarea"></textarea>
+    </div>
+
+    <div class="hidden-options">
+      <select title="Speed" class="selector-speed" id="ttsSpeed">
+        <option value="0.5">0.5</option>
+        <option value="0.6">0.6</option>
+        <option value="0.7">0.7</option>
+        <option value="0.8">0.8</option>
+        <option value="0.9">0.9</option>
+        <option value="1" selected>1.0</option>
+        <option value="1.1">1.1</option>
+        <option value="1.2">1.2</option>
+        <option value="1.5">1.5</option>
+        <option value="1.8">1.8</option>
+        <option value="2">2</option>
+        <option value="2.5">2.5</option>
+        <option value="3">3</option>
+      </select>
+
+      <select title="Role" class="selector-emotion" id="ttsEmotion">
+        <option value="evil">😈</option>
+        <option value="neutral" selected>😐</option>
+        <option value="good">😎</option>
+        <option value="happy">🥳</option>
+      </select>
+
+      <select title="Models" class="selector-models" id="ttsModel">
+        <option lang="ru-RU" gpu="true" value="tatyana_shitova" data-emotions="neutral,happy" selected>Alice (♀)</option>
+        <option lang="ru-RU" gpu="true" value="oksana" data-emotions="evil,neutral,good">Oksana (♀)</option>
+        <option lang="ru-RU" gpu="true" value="jane" data-emotions="evil,neutral,good">Jane (♀)</option>
+        <option lang="ru-RU" gpu="true" value="omazh" data-emotions="evil,neutral">Omazh (♀)</option>
+        <option lang="ru-RU" gpu="true" value="nastya" data-emotions="evil,neutral,good">Nastya (♀)</option>
+        <option lang="ru-RU" gpu="true" value="sasha" data-emotions="evil,neutral,good">Sasha (♀)</option>
+        <option lang="ru-RU" gpu="true" value="tatyana_abramova" data-emotions="good">Tatyana (♀)</option>
+        <option lang="ru-RU" gpu="true" value="ermil" data-emotions="evil,neutral,good">Ermil (♂)</option>
+        <option lang="ru-RU" gpu="true" value="zahar" data-emotions="evil,neutral,good">Zahar (♂)</option>
+        <option lang="ru-RU" gpu="true" value="kolya" data-emotions="evil,neutral,good">Kolya (♂)</option>
+        <option lang="ru-RU" gpu="true" value="kostya" data-emotions="evil,neutral,good">Kostya (♂)</option>
+        <option lang="ru-RU" gpu="true" value="anton_samokhvalov" data-emotions="neutral">Anton (♂)</option>
+        <option lang="ru-RU" gpu="false" value="levitan" data-emotions="neutral,good">Levitan (♂)</option>
+        <option lang="ru-RU" gpu="false" value="nick" data-emotions="evil,neutral,good">Nick (♂)</option>
+        <option lang="ru-RU" gpu="false" value="zhenya" data-emotions="evil,neutral,good">Zhenya (♂)</option><hr>
+        <option lang="tr-TR" gpu="true" value="selay" data-emotions="neutral">Selay [Tr] (♀)</option>
+        <option lang="uk-UA" gpu="false" value="oksana" data-emotions="evil,neutral,good">Oksana [Ua] (♀)</option>
+        <option lang="en-US" gpu="false" value="oksana" data-emotions="evil,neutral,good">Oksana [En] (♀)</option>
+        <option lang="en-US" gpu="false" value="jane" data-emotions="evil,neutral,good">Jane [En] (♀)</option>
+        <option lang="en-US" gpu="false" value="omazh" data-emotions="evil,neutral">Omazh [En] (♀)</option>
+        <option lang="en-US" gpu="false" value="nastya" data-emotions="evil,neutral">Nastya [En] (♀)</option>
+        <option lang="en-US" gpu="false" value="sasha" data-emotions="evil,neutral,good">Sasha [En] (♀)</option>
+        <option lang="en-US" gpu="false" value="ermil" data-emotions="evil,neutral,good">Ermil [En] (♂)</option>
+        <option lang="en-US" gpu="false" value="zahar" data-emotions="evil,neutral,good">Zahar [En] (♂)</option>
+        <option lang="en-US" gpu="false" value="kolya" data-emotions="evil,neutral,good">Kolya [En] (♂)</option>
+        <option lang="en-US" gpu="false" value="kostya" data-emotions="evil,neutral,good">Kostya [En] (♂)</option>
+        <option lang="en-US" gpu="false" value="erkanyavas" data-emotions="evil,neutral,good">Erkanyavas [En] (♂)</option>
+        <option lang="en-US" gpu="false" value="silaerkan" data-emotions="neutral">Silaerkan [En] (♀)</option>
+      </select>
+    </div>
+
+  </main>
+
+
+  <div class="modal-wrapper" id="modal-save">
+    <div class="modal">
+      <div class="modal-title">Введите название для вашего сценария.</div>
+      <input class="modal-input" type="text" name="" id="save-title">
+      <div class="button-section">
+        <button class="button" id="save-yes">Сохранить</button>
+        <button class="button" id="save-no">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal-wrapper" id="modal-load">
+    <div class="modal load-list" id="load-list">
+      <div class="load-list-custom" id="load-list-custom"></div>
+      <button class="button modal-button" id="s11" style="border-color: olive">Лео и Пейдж</button>
+      <button class="button modal-button" id="s12" style="border-color: olive">Лена и Алексей</button>
+      <button class="button modal-button" id="s13" style="border-color: olive">Джена и Бэка</button>
+      <button class="button modal-button" id="s14" style="border-color: olive">Папа и Тим</button>
+    </div>
+  </div>
+
+
+  
+  <input id="speechRecognitionSwitch" type="checkbox">
+  <button id="speechRecognitionBtn"></button>
+  <audio id="audio" src=""></audio>
+
+  <script src="js/storage.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/drop.js"></script>
+  
+
+  
+  <script nonce="V8ltFVqXX5" src="js/ttsset.js"></script>
+  <script src="https://bitbucket.org/qweweio/zeroone/raw/84537ec26360145b68c8d023c0e168ecef2cee37/text.modern.min.js" crossorigin="anonymous"></script>
+  <script src="https://yastatic.net/s3/translate/v77.2/dist/scripts/bundles/webspeechkit.js" crossorigin="anonymous"></script>
+  <div id="textApp"></div>
+  <script nonce="V8ltFVqXX5">
+    window.app = initTextApp(window.config);
+    if (typeof initReactTextApp === 'function') initReactTextApp(window.app, window.config)
+  </script>
+  <script src="js/speechrecognition.js"></script>
+  <script src="audio/text.js"></script>
+
+</body>
+</html>
